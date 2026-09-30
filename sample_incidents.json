@@ -1,0 +1,728 @@
+{
+  "as_of": "2026-09-28T12:00:00+00:00",
+  "incidents": [
+    {
+      "incident_id": "INC-0001",
+      "latitude": 30.5662038031,
+      "longitude": 79.5692869502,
+      "locationSource": "gps",
+      "accuracyM": 20.586793448,
+      "accuracyIsEstimate": false,
+      "riskLevel": "HIGH",
+      "eventType": "voice_trigger",
+      "transcript": "bachao koi hai",
+      "audioEvents": [
+        {
+          "label": "Speech",
+          "score": 0.8
+        },
+        {
+          "label": "Crying, sobbing",
+          "score": 0.9
+        },
+        {
+          "label": "Explosion",
+          "score": 0.85
+        }
+      ],
+      "audioAnalysis": "[ILLUSTRATIVE ANALYSIS] Acoustic Event: Crying, sobbing (0.90). Transcript: \"bachao koi hai\".",
+      "relayedByMesh": false,
+      "originTimestamp": "2026-09-23T21:04:00+00:00",
+      "relayedAt": null,
+      "timestamp": "2026-09-23T21:04:00+00:00"
+    },
+    {
+      "incident_id": "INC-0002",
+      "latitude": 30.5728893031,
+      "longitude": 79.6033002882,
+      "locationSource": "gps",
+      "accuracyM": 7.3975981786,
+      "accuracyIsEstimate": false,
+      "riskLevel": "MEDIUM",
+      "eventType": "voice_trigger",
+      "transcript": "khatra hai yahan sab log bhaag rahe hain",
+      "audioEvents": [
+        {
+          "label": "Silence",
+          "score": 0.52
+        }
+      ],
+      "audioAnalysis": "[ILLUSTRATIVE ANALYSIS] Acoustic Event: Silence (0.52). Transcript: \"khatra hai yahan sab log bhaag rahe hain\".",
+      "relayedByMesh": false,
+      "originTimestamp": "2026-09-25T03:27:00+00:00",
+      "relayedAt": null,
+      "timestamp": "2026-09-25T03:27:00+00:00"
+    },
+    {
+      "incident_id": "INC-0003",
+      "latitude": 30.592292989,
+      "longitude": 79.5788778853,
+      "locationSource": "gps",
+      "accuracyM": 20.5562058618,
+      "accuracyIsEstimate": false,
+      "riskLevel": "MEDIUM",
+      "eventType": "voice_trigger",
+      "transcript": "testing testing one two",
+      "audioEvents": [],
+      "audioAnalysis": "[ILLUSTRATIVE ANALYSIS] Transcript: \"testing testing one two\".",
+      "relayedByMesh": false,
+      "originTimestamp": "2026-09-24T10:33:00+00:00",
+      "relayedAt": null,
+      "timestamp": "2026-09-24T10:33:00+00:00"
+    },
+    {
+      "incident_id": "INC-0004",
+      "latitude": 30.5899923781,
+      "longitude": 79.5984164936,
+      "locationSource": "gps",
+      "accuracyM": 14.9082415971,
+      "accuracyIsEstimate": false,
+      "riskLevel": "LOW",
+      "eventType": "sensor_trigger",
+      "transcript": "",
+      "audioEvents": [
+        {
+          "label": "Crying, sobbing",
+          "score": 0.56
+        }
+      ],
+      "audioAnalysis": "[ILLUSTRATIVE ANALYSIS] Acoustic Event: Crying, sobbing (0.56). Transcript: \"No speech detected\".",
+      "relayedByMesh": false,
+      "originTimestamp": "2026-09-27T04:23:00+00:00",
+      "relayedAt": null,
+      "timestamp": "2026-09-27T04:23:00+00:00"
+    },
+    {
+      "incident_id": "INC-0005",
+      "latitude": 30.566502753,
+      "longitude": 79.5696582001,
+      "locationSource": "last_known",
+      "accuracyM": 63.3990037993,
+      "accuracyIsEstimate": false,
+      "riskLevel": "MEDIUM",
+      "eventType": "voice_trigger",
+      "transcript": "landslide near the hill road",
+      "audioEvents": [
+        {
+          "label": "Speech",
+          "score": 0.71
+        },
+        {
+          "label": "Rain",
+          "score": 0.68
+        }
+      ],
+      "audioAnalysis": "[ILLUSTRATIVE ANALYSIS] Acoustic Event: Speech (0.71). Transcript: \"landslide near the hill road\".",
+      "relayedByMesh": false,
+      "originTimestamp": "2026-09-23T21:02:00+00:00",
+      "relayedAt": null,
+      "timestamp": "2026-09-23T21:02:00+00:00"
+    },
+    {
+      "incident_id": "INC-0006",
+      "latitude": 0.0,
+      "longitude": 0.0,
+      "locationSource": "gps",
+      "accuracyM": 47.536465231,
+      "accuracyIsEstimate": false,
+      "riskLevel": "CRITICAL",
+      "eventType": "voice_trigger",
+      "transcript": "we felt a big tremor just now",
+      "audioEvents": [
+        {
+          "label": "Speech",
+          "score": 0.68
+        },
+        {
+          "label": "Explosion",
+          "score": 0.93
+        }
+      ],
+      "audioAnalysis": "[ILLUSTRATIVE ANALYSIS] Acoustic Event: Explosion (0.93). Transcript: \"we felt a big tremor just now\".",
+      "relayedByMesh": false,
+      "originTimestamp": "2026-09-26T21:42:00+00:00",
+      "relayedAt": null,
+      "timestamp": "2026-09-26T21:42:00+00:00"
+    },
+    {
+      "incident_id": "INC-0007",
+      "latitude": 30.5905239072,
+      "longitude": 79.5805226454,
+      "locationSource": "gps",
+      "accuracyM": 13.1745656633,
+      "accuracyIsEstimate": false,
+      "riskLevel": "CRITICAL",
+      "eventType": "sensor_trigger",
+      "transcript": "",
+      "audioEvents": [],
+      "audioAnalysis": "[ILLUSTRATIVE ANALYSIS] Transcript: \"No speech detected\".",
+      "relayedByMesh": false,
+      "originTimestamp": "2026-09-27T19:03:00+00:00",
+      "relayedAt": null,
+      "timestamp": "2026-09-27T19:03:00+00:00"
+    },
+    {
+      "incident_id": "INC-0008",
+      "latitude": 0.0,
+      "longitude": 0.0,
+      "locationSource": "gps",
+      "accuracyM": 30.8150659576,
+      "accuracyIsEstimate": false,
+      "riskLevel": "HIGH",
+      "eventType": "voice_trigger",
+      "transcript": "we felt a big tremor just now",
+      "audioEvents": [
+        {
+          "label": "Shout",
+          "score": 0.67
+        },
+        {
+          "label": "Crying, sobbing",
+          "score": 0.79
+        }
+      ],
+      "audioAnalysis": "[ILLUSTRATIVE ANALYSIS] Acoustic Event: Crying, sobbing (0.79). Transcript: \"we felt a big tremor just now\".",
+      "relayedByMesh": true,
+      "originTimestamp": "2026-09-25T09:16:00+00:00",
+      "relayedAt": "2026-09-25T09:28:02.018625+00:00",
+      "timestamp": "2026-09-25T09:28:02.018625+00:00"
+    },
+    {
+      "incident_id": "INC-0009",
+      "latitude": 30.5989399539,
+      "longitude": 79.5809616827,
+      "locationSource": "pdr",
+      "accuracyM": 35.6745528711,
+      "accuracyIsEstimate": true,
+      "riskLevel": "HIGH",
+      "eventType": "voice_trigger",
+      "transcript": "madad karo please madad karo",
+      "audioEvents": [
+        {
+          "label": "Wind",
+          "score": 0.62
+        }
+      ],
+      "audioAnalysis": "[ILLUSTRATIVE ANALYSIS] Acoustic Event: Wind (0.62). Transcript: \"madad karo please madad karo\".",
+      "relayedByMesh": false,
+      "originTimestamp": "2026-09-24T13:19:00+00:00",
+      "relayedAt": null,
+      "timestamp": "2026-09-24T13:19:00+00:00"
+    },
+    {
+      "incident_id": "INC-0010",
+      "latitude": null,
+      "longitude": null,
+      "locationSource": "none",
+      "accuracyM": null,
+      "accuracyIsEstimate": false,
+      "riskLevel": "HIGH",
+      "eventType": "voice_trigger",
+      "transcript": "khatra hai yahan sab log bhaag rahe hain",
+      "audioEvents": [
+        {
+          "label": "Speech",
+          "score": 0.5
+        }
+      ],
+      "audioAnalysis": "[ILLUSTRATIVE ANALYSIS] Acoustic Event: Speech (0.50). Transcript: \"khatra hai yahan sab log bhaag rahe hain\".",
+      "relayedByMesh": true,
+      "originTimestamp": "2026-09-25T01:05:00+00:00",
+      "relayedAt": "2026-09-25T01:15:57.636292+00:00",
+      "timestamp": "2026-09-25T01:15:57.636292+00:00"
+    },
+    {
+      "incident_id": "INC-0011",
+      "latitude": 30.595152754,
+      "longitude": 79.5768499208,
+      "locationSource": "pdr",
+      "accuracyM": 22.7349357321,
+      "accuracyIsEstimate": true,
+      "riskLevel": "HIGH",
+      "eventType": "voice_trigger",
+      "transcript": "ghar gir raha hai jaldi aao",
+      "audioEvents": [],
+      "audioAnalysis": "[ILLUSTRATIVE ANALYSIS] Transcript: \"ghar gir raha hai jaldi aao\".",
+      "relayedByMesh": false,
+      "originTimestamp": "2026-09-27T22:41:00+00:00",
+      "relayedAt": null,
+      "timestamp": "2026-09-27T22:41:00+00:00"
+    },
+    {
+      "incident_id": "INC-0012",
+      "latitude": 30.5904721007,
+      "longitude": 79.5829767929,
+      "locationSource": "gps",
+      "accuracyM": 7.9714450097,
+      "accuracyIsEstimate": false,
+      "riskLevel": "CRITICAL",
+      "eventType": "voice_trigger",
+      "transcript": "khatra hai yahan sab log bhaag rahe hain",
+      "audioEvents": [
+        {
+          "label": "Wind",
+          "score": 0.64
+        },
+        {
+          "label": "Explosion",
+          "score": 0.61
+        },
+        {
+          "label": "Siren",
+          "score": 0.74
+        }
+      ],
+      "audioAnalysis": "[ILLUSTRATIVE ANALYSIS] Acoustic Event: Siren (0.74). Transcript: \"khatra hai yahan sab log bhaag rahe hain\".",
+      "relayedByMesh": true,
+      "originTimestamp": "2026-09-23T21:25:00+00:00",
+      "relayedAt": "2026-09-23T21:32:12.424930+00:00",
+      "timestamp": "2026-09-23T21:32:12.424930+00:00"
+    },
+    {
+      "incident_id": "INC-0013",
+      "latitude": 30.5532956104,
+      "longitude": 79.6061638,
+      "locationSource": "pdr",
+      "accuracyM": 35.3352278679,
+      "accuracyIsEstimate": true,
+      "riskLevel": "LOW",
+      "eventType": "sensor_trigger",
+      "transcript": "",
+      "audioEvents": [],
+      "audioAnalysis": "[ILLUSTRATIVE ANALYSIS] Transcript: \"No speech detected\".",
+      "relayedByMesh": false,
+      "originTimestamp": "2026-09-26T22:01:00+00:00",
+      "relayedAt": null,
+      "timestamp": "2026-09-26T22:01:00+00:00"
+    },
+    {
+      "incident_id": "INC-0014",
+      "latitude": 30.5763053172,
+      "longitude": 79.5922954842,
+      "locationSource": "gps",
+      "accuracyM": 21.4201485125,
+      "accuracyIsEstimate": false,
+      "riskLevel": "MEDIUM",
+      "eventType": "sensor_trigger",
+      "transcript": "",
+      "audioEvents": [
+        {
+          "label": "Siren",
+          "score": 0.72
+        },
+        {
+          "label": "Rain",
+          "score": 0.93
+        }
+      ],
+      "audioAnalysis": "[ILLUSTRATIVE ANALYSIS] Acoustic Event: Rain (0.93). Transcript: \"No speech detected\".",
+      "relayedByMesh": true,
+      "originTimestamp": "2026-09-26T06:16:00+00:00",
+      "relayedAt": "2026-09-26T06:36:19.074638+00:00",
+      "timestamp": "2026-09-26T06:36:19.074638+00:00"
+    },
+    {
+      "incident_id": "INC-0015",
+      "latitude": 30.5531330268,
+      "longitude": 79.6006073702,
+      "locationSource": "pdr",
+      "accuracyM": 33.8478568386,
+      "accuracyIsEstimate": true,
+      "riskLevel": "LOW",
+      "eventType": "sensor_trigger",
+      "transcript": "",
+      "audioEvents": [
+        {
+          "label": "Siren",
+          "score": 0.68
+        }
+      ],
+      "audioAnalysis": "[ILLUSTRATIVE ANALYSIS] Acoustic Event: Siren (0.68). Transcript: \"No speech detected\".",
+      "relayedByMesh": false,
+      "originTimestamp": "2026-09-27T18:48:00+00:00",
+      "relayedAt": null,
+      "timestamp": "2026-09-27T18:48:00+00:00"
+    },
+    {
+      "incident_id": "INC-0016",
+      "latitude": 30.5543967945,
+      "longitude": 79.5915247256,
+      "locationSource": "pdr",
+      "accuracyM": 49.6605044319,
+      "accuracyIsEstimate": true,
+      "riskLevel": "HIGH",
+      "eventType": "voice_trigger",
+      "transcript": "khatra hai yahan sab log bhaag rahe hain",
+      "audioEvents": [
+        {
+          "label": "Siren",
+          "score": 0.8
+        },
+        {
+          "label": "Silence",
+          "score": 0.86
+        },
+        {
+          "label": "Screaming",
+          "score": 0.82
+        }
+      ],
+      "audioAnalysis": "[ILLUSTRATIVE ANALYSIS] Acoustic Event: Silence (0.86). Transcript: \"khatra hai yahan sab log bhaag rahe hain\".",
+      "relayedByMesh": true,
+      "originTimestamp": "2026-09-28T09:03:00+00:00",
+      "relayedAt": "2026-09-28T09:31:17.475178+00:00",
+      "timestamp": "2026-09-28T09:31:17.475178+00:00"
+    },
+    {
+      "incident_id": "INC-0017",
+      "latitude": 30.5584275357,
+      "longitude": 79.5659029563,
+      "locationSource": "gps",
+      "accuracyM": 20.5408539165,
+      "accuracyIsEstimate": false,
+      "riskLevel": "HIGH",
+      "eventType": "voice_trigger",
+      "transcript": "mujhe koi rasta nahi mil raha",
+      "audioEvents": [
+        {
+          "label": "Speech",
+          "score": 0.57
+        },
+        {
+          "label": "Shout",
+          "score": 0.88
+        },
+        {
+          "label": "Crying, sobbing",
+          "score": 0.71
+        }
+      ],
+      "audioAnalysis": "[ILLUSTRATIVE ANALYSIS] Acoustic Event: Shout (0.88). Transcript: \"mujhe koi rasta nahi mil raha\".",
+      "relayedByMesh": false,
+      "originTimestamp": "2026-09-24T13:07:00+00:00",
+      "relayedAt": null,
+      "timestamp": "2026-09-24T13:07:00+00:00"
+    },
+    {
+      "incident_id": "INC-0018",
+      "latitude": 30.5526776858,
+      "longitude": 79.5911345893,
+      "locationSource": "gps",
+      "accuracyM": 22.7591684249,
+      "accuracyIsEstimate": false,
+      "riskLevel": "CRITICAL",
+      "eventType": "voice_trigger",
+      "transcript": "we felt a big tremor just now",
+      "audioEvents": [
+        {
+          "label": "Shatter",
+          "score": 0.93
+        }
+      ],
+      "audioAnalysis": "[ILLUSTRATIVE ANALYSIS] Acoustic Event: Shatter (0.93). Transcript: \"we felt a big tremor just now\".",
+      "relayedByMesh": false,
+      "originTimestamp": "2026-09-26T23:04:00+00:00",
+      "relayedAt": null,
+      "timestamp": "2026-09-26T23:04:00+00:00"
+    },
+    {
+      "incident_id": "INC-0019",
+      "latitude": 0.0,
+      "longitude": 0.0,
+      "locationSource": "last_known",
+      "accuracyM": 10.4045877042,
+      "accuracyIsEstimate": false,
+      "riskLevel": "LOW",
+      "eventType": "voice_trigger",
+      "transcript": "I am stuck, the ground is shaking",
+      "audioEvents": [
+        {
+          "label": "Crying, sobbing",
+          "score": 0.74
+        },
+        {
+          "label": "Rain",
+          "score": 0.75
+        }
+      ],
+      "audioAnalysis": "[ILLUSTRATIVE ANALYSIS] Acoustic Event: Rain (0.75). Transcript: \"I am stuck, the ground is shaking\".",
+      "relayedByMesh": false,
+      "originTimestamp": "2026-09-23T12:15:00+00:00",
+      "relayedAt": null,
+      "timestamp": "2026-09-23T12:15:00+00:00"
+    },
+    {
+      "incident_id": "INC-0020",
+      "latitude": 30.5947463979,
+      "longitude": 79.5877928477,
+      "locationSource": "gps",
+      "accuracyM": 8.9713082861,
+      "accuracyIsEstimate": false,
+      "riskLevel": "MEDIUM",
+      "eventType": "voice_trigger",
+      "transcript": "I am stuck, the ground is shaking",
+      "audioEvents": [
+        {
+          "label": "Silence",
+          "score": 0.61
+        }
+      ],
+      "audioAnalysis": "[ILLUSTRATIVE ANALYSIS] Acoustic Event: Silence (0.61). Transcript: \"I am stuck, the ground is shaking\".",
+      "relayedByMesh": false,
+      "originTimestamp": "2026-09-28T01:24:00+00:00",
+      "relayedAt": null,
+      "timestamp": "2026-09-28T01:24:00+00:00"
+    },
+    {
+      "incident_id": "INC-0021",
+      "latitude": 30.5874831676,
+      "longitude": 79.5670175192,
+      "locationSource": "gps",
+      "accuracyM": 9.2226073232,
+      "accuracyIsEstimate": false,
+      "riskLevel": "LOW",
+      "eventType": "voice_trigger",
+      "transcript": "mujhe koi rasta nahi mil raha",
+      "audioEvents": [
+        {
+          "label": "Speech",
+          "score": 0.88
+        },
+        {
+          "label": "Crying, sobbing",
+          "score": 0.93
+        }
+      ],
+      "audioAnalysis": "[ILLUSTRATIVE ANALYSIS] Acoustic Event: Crying, sobbing (0.93). Transcript: \"mujhe koi rasta nahi mil raha\".",
+      "relayedByMesh": false,
+      "originTimestamp": "2026-09-28T06:54:00+00:00",
+      "relayedAt": null,
+      "timestamp": "2026-09-28T06:54:00+00:00"
+    },
+    {
+      "incident_id": "INC-0022",
+      "latitude": 30.590101023,
+      "longitude": 79.5984482403,
+      "locationSource": "gps",
+      "accuracyM": 24.5671714434,
+      "accuracyIsEstimate": false,
+      "riskLevel": "CRITICAL",
+      "eventType": "voice_trigger",
+      "transcript": "I am stuck, the ground is shaking",
+      "audioEvents": [],
+      "audioAnalysis": "[ILLUSTRATIVE ANALYSIS] Transcript: \"I am stuck, the ground is shaking\".",
+      "relayedByMesh": false,
+      "originTimestamp": "2026-09-25T00:07:00+00:00",
+      "relayedAt": null,
+      "timestamp": "2026-09-25T00:07:00+00:00"
+    },
+    {
+      "incident_id": "INC-0023",
+      "latitude": null,
+      "longitude": null,
+      "locationSource": "none",
+      "accuracyM": null,
+      "accuracyIsEstimate": false,
+      "riskLevel": "CRITICAL",
+      "eventType": "sensor_trigger",
+      "transcript": "",
+      "audioEvents": [
+        {
+          "label": "Explosion",
+          "score": 0.8
+        },
+        {
+          "label": "Speech",
+          "score": 0.74
+        }
+      ],
+      "audioAnalysis": "[ILLUSTRATIVE ANALYSIS] Acoustic Event: Explosion (0.80). Transcript: \"No speech detected\".",
+      "relayedByMesh": false,
+      "originTimestamp": "2026-09-23T19:18:00+00:00",
+      "relayedAt": null,
+      "timestamp": "2026-09-23T19:18:00+00:00"
+    },
+    {
+      "incident_id": "INC-0024",
+      "latitude": 30.5898595671,
+      "longitude": 79.5991461879,
+      "locationSource": "gps",
+      "accuracyM": 20.3650053932,
+      "accuracyIsEstimate": false,
+      "riskLevel": "HIGH",
+      "eventType": "voice_trigger",
+      "transcript": "bacha lo humein yahan se",
+      "audioEvents": [
+        {
+          "label": "Screaming",
+          "score": 0.98
+        },
+        {
+          "label": "Explosion",
+          "score": 0.56
+        }
+      ],
+      "audioAnalysis": "[ILLUSTRATIVE ANALYSIS] Acoustic Event: Screaming (0.98). Transcript: \"bacha lo humein yahan se\".",
+      "relayedByMesh": false,
+      "originTimestamp": "2026-09-25T13:09:00+00:00",
+      "relayedAt": null,
+      "timestamp": "2026-09-25T13:09:00+00:00"
+    },
+    {
+      "incident_id": "INC-0025",
+      "latitude": 30.5948403755,
+      "longitude": 79.5767539055,
+      "locationSource": "pdr",
+      "accuracyM": 27.0001022602,
+      "accuracyIsEstimate": true,
+      "riskLevel": "HIGH",
+      "eventType": "sensor_trigger",
+      "transcript": "",
+      "audioEvents": [
+        {
+          "label": "Crying, sobbing",
+          "score": 0.89
+        },
+        {
+          "label": "Wind",
+          "score": 0.56
+        },
+        {
+          "label": "Silence",
+          "score": 0.52
+        }
+      ],
+      "audioAnalysis": "[ILLUSTRATIVE ANALYSIS] Acoustic Event: Crying, sobbing (0.89). Transcript: \"No speech detected\".",
+      "relayedByMesh": false,
+      "originTimestamp": "2026-09-27T00:27:00+00:00",
+      "relayedAt": null,
+      "timestamp": "2026-09-27T00:27:00+00:00"
+    },
+    {
+      "incident_id": "INC-0026",
+      "latitude": null,
+      "longitude": null,
+      "locationSource": "none",
+      "accuracyM": null,
+      "accuracyIsEstimate": false,
+      "riskLevel": "HIGH",
+      "eventType": "sensor_trigger",
+      "transcript": "",
+      "audioEvents": [
+        {
+          "label": "Speech",
+          "score": 0.7
+        },
+        {
+          "label": "Screaming",
+          "score": 0.61
+        },
+        {
+          "label": "Shatter",
+          "score": 0.68
+        }
+      ],
+      "audioAnalysis": "[ILLUSTRATIVE ANALYSIS] Acoustic Event: Speech (0.70). Transcript: \"No speech detected\".",
+      "relayedByMesh": false,
+      "originTimestamp": "2026-09-28T04:02:00+00:00",
+      "relayedAt": null,
+      "timestamp": "2026-09-28T04:02:00+00:00"
+    },
+    {
+      "incident_id": "INC-0027",
+      "latitude": 30.5902737438,
+      "longitude": 79.5987787558,
+      "locationSource": "last_known",
+      "accuracyM": 70.0819546421,
+      "accuracyIsEstimate": false,
+      "riskLevel": "CRITICAL",
+      "eventType": "voice_trigger",
+      "transcript": "bacha lo humein yahan se",
+      "audioEvents": [
+        {
+          "label": "Explosion",
+          "score": 0.5
+        }
+      ],
+      "audioAnalysis": "[ILLUSTRATIVE ANALYSIS] Acoustic Event: Explosion (0.50). Transcript: \"bacha lo humein yahan se\".",
+      "relayedByMesh": false,
+      "originTimestamp": "2026-09-25T19:11:00+00:00",
+      "relayedAt": null,
+      "timestamp": "2026-09-25T19:11:00+00:00"
+    },
+    {
+      "incident_id": "INC-0028",
+      "latitude": 30.5841154115,
+      "longitude": 79.6001329516,
+      "locationSource": "gps",
+      "accuracyM": 20.4885359803,
+      "accuracyIsEstimate": false,
+      "riskLevel": "HIGH",
+      "eventType": "voice_trigger",
+      "transcript": "I am stuck, the ground is shaking",
+      "audioEvents": [
+        {
+          "label": "Shatter",
+          "score": 0.72
+        }
+      ],
+      "audioAnalysis": "[ILLUSTRATIVE ANALYSIS] Acoustic Event: Shatter (0.72). Transcript: \"I am stuck, the ground is shaking\".",
+      "relayedByMesh": true,
+      "originTimestamp": "2026-09-26T00:48:00+00:00",
+      "relayedAt": "2026-09-26T00:52:24.492658+00:00",
+      "timestamp": "2026-09-26T00:52:24.492658+00:00"
+    },
+    {
+      "incident_id": "INC-0029",
+      "latitude": 30.5683373058,
+      "longitude": 79.6038202334,
+      "locationSource": "gps",
+      "accuracyM": 5.0468863073,
+      "accuracyIsEstimate": false,
+      "riskLevel": "HIGH",
+      "eventType": "voice_trigger",
+      "transcript": "khatra hai yahan sab log bhaag rahe hain",
+      "audioEvents": [
+        {
+          "label": "Wind",
+          "score": 0.81
+        },
+        {
+          "label": "Shatter",
+          "score": 0.77
+        },
+        {
+          "label": "Rain",
+          "score": 0.89
+        }
+      ],
+      "audioAnalysis": "[ILLUSTRATIVE ANALYSIS] Acoustic Event: Rain (0.89). Transcript: \"khatra hai yahan sab log bhaag rahe hain\".",
+      "relayedByMesh": true,
+      "originTimestamp": "2026-09-27T23:01:00+00:00",
+      "relayedAt": "2026-09-27T23:23:41.555741+00:00",
+      "timestamp": "2026-09-27T23:23:41.555741+00:00"
+    },
+    {
+      "incident_id": "INC-0030",
+      "latitude": 30.5950714907,
+      "longitude": 79.5769020995,
+      "locationSource": "pdr",
+      "accuracyM": 40.2768925446,
+      "accuracyIsEstimate": true,
+      "riskLevel": "HIGH",
+      "eventType": "voice_trigger",
+      "transcript": "I am stuck, the ground is shaking",
+      "audioEvents": [
+        {
+          "label": "Shout",
+          "score": 0.75
+        }
+      ],
+      "audioAnalysis": "[ILLUSTRATIVE ANALYSIS] Acoustic Event: Shout (0.75). Transcript: \"I am stuck, the ground is shaking\".",
+      "relayedByMesh": false,
+      "originTimestamp": "2026-09-25T03:45:00+00:00",
+      "relayedAt": null,
+      "timestamp": "2026-09-25T03:45:00+00:00"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+streamlit==1.64.0
+folium==0.20.0
+streamlit-folium==0.27.4
+pandas==3.0.6
+numpy==2.5.2
+scikit-learn==1.9.1
+shapely==2.1.2
+geopandas==1.2.0
+requests==2.34.2
+google-genai==2.25.0
+streamlit-autorefresh==1.0.1

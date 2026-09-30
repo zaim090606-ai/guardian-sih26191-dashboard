@@ -1,0 +1,20 @@
+# Python caches
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+venv/
+
+# Connector on-disk cache
+connectors/.cache/
+
+# Secrets and local state — never commit
+.env
+.env.*
+!.env.example
+review_state.json
+*.key
+*.pem
+secrets.toml
+.streamlit/secrets.toml
+service-account*.json

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>All India: CAP Disaster Alert Feeds (saved test sample, ILLUSTRATIVE items)</title>
+    <item>
+      <title>Heavy rain warning for Chamoli district, Uttarakhand</title>
+      <description>Heavy rainfall likely over the next 24 hours.</description>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=SAMPLE-1</link>
+      <author>controlroom@example.invalid (Sample sender)</author>
+      <guid isPermaLink="false">SAMPLE-1</guid>
+      <pubDate>Tue, 15 Sep 2026 09:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Thunderstorm warning for Chennai, Tamil Nadu</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=SAMPLE-2</link>
+      <author>controlroom@example.invalid (Sample sender)</author>
+      <guid isPermaLink="false">SAMPLE-2</guid>
+      <pubDate>Tue, 15 Sep 2026 08:00:00 GMT</pubDate>
+    </item>
+  </channel>
+</rss>
