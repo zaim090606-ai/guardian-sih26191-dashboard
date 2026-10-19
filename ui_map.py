@@ -15,7 +15,7 @@ import route_safety
 import ui_map3d
 
 ZONE_COLORS = palette.TIER_COLORS
-RISK_COLORS = {"CRITICAL": "#7f1d1d", "HIGH": "#dc2626", "MEDIUM": "#d97706", "LOW": "#65a30d"}
+RISK_COLORS = {"CRITICAL": "#7f1d1d", "HIGH": palette.RED, "MEDIUM": palette.AMBER, "LOW": "#65a30d"}
 
 
 def _cell_bounds(lat, lon):
@@ -135,9 +135,9 @@ def _route_legend_html(threshold):
         '<div style="position:fixed;bottom:24px;left:24px;z-index:9999;background:white;color:#111;'
         'padding:8px 10px;border:1px solid #888;border-radius:4px;font-size:12px;">'
         "<b>Route risk</b> (dashed = unallocated)<br>"
-        f'<span style="color:#16a34a">&#9632;</span> green &lt; {amber:.0f}<br>'
-        f'<span style="color:#d97706">&#9632;</span> amber {amber:.0f}&ndash;{threshold:.0f}<br>'
-        f'<span style="color:#dc2626">&#9632;</span> red &ge; {threshold:.0f} (unsafe)</div>'
+        f'<span style="color:{palette.GREEN}">&#9632;</span> green &lt; {amber:.0f}<br>'
+        f'<span style="color:{palette.AMBER}">&#9632;</span> amber {amber:.0f}&ndash;{threshold:.0f}<br>'
+        f'<span style="color:{palette.RED}">&#9632;</span> red &ge; {threshold:.0f} (unsafe)</div>'
     )
 
 

@@ -33,7 +33,7 @@ def data_status(signals):
 
 
 def render_overview_tab(result, signals):
-    st.title("Guardian x SIH26191: Relocation & Ground-Truth Prototype")
+    st.header("Guardian x SIH26191: Relocation & Ground-Truth Prototype")
     st.markdown(f"**{TAGLINE}**")
     st.caption(
         "Places where the network fails are flagged too, because that is where response is "
