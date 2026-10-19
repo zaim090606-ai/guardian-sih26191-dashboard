@@ -112,3 +112,39 @@ def test_component_file_pins_same_three_url_and_sri_and_has_interaction_features
 def test_fallback_html_embeds_payload_and_no_placeholder_left():
     html = hero.build_hero_html({"points": [], "legend": [], "caption": "x"})
     assert "window.__HERO__={" in html and "window.__HERO__=null;" not in html
+
+
+def _script_count(html):
+    return html.lower().count("<script"), html.lower().count("</script")
+
+
+def test_embedded_payload_cannot_break_out_of_script_tag():
+    base = hero.build_hero_html(hero.build_hero_payload(_df(), 4))
+    evil = "</script><script>alert(1)</script>"
+    html = hero.build_hero_html(hero.build_hero_payload(_df().assign(name=[evil, "B", "C", "D"]), 4))
+    assert _script_count(html) == _script_count(base)
+    assert "alert(1)</script>" not in html and "</script><script>alert" not in html
+    start = html.index("window.__HERO__={")
+    payload_line = html[start:html.index("</script>", start)]
+    assert "<" not in payload_line and ">" not in payload_line
+    assert "\\u003c/script\\u003e" in payload_line
+
+
+def test_payload_escapes_quotes_ampersands_unicode_and_line_separators():
+    tricky = 'Ra"m & <Sons> \u2028\u2029 \u0928\u093e\u092e \'x\''
+    payload = hero.build_hero_payload(_df().assign(name=[tricky, "B", "C", "D"]), 4)
+    text = hero.safe_json(payload)
+    for raw in ("<", ">", "&", "\u2028", "\u2029"):
+        assert raw not in text
+    back = json.loads(text)  # escaping is lossless
+    labels = [p["label"] for p in back["points"]]
+    assert [l for l in labels if l.startswith("Ra")] == [tricky.strip()[:40]]
+    html = hero.build_hero_html(payload)
+    assert "\u2028" not in html and "\u2029" not in html
+
+
+def test_component_js_never_writes_data_with_innerhtml():
+    import re
+    js = hero._template()
+    for m in re.finditer(r"innerHTML\s*=\s*([^;]*);", js):
+        assert m.group(1).strip() == "''"

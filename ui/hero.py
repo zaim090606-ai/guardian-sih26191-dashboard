@@ -116,9 +116,21 @@ def _template():
         return fh.read()
 
 
+_JS_ESCAPES = {"<": "\\u003c", ">": "\\u003e", "&": "\\u0026", chr(0x2028): "\\u2028", chr(0x2029): "\\u2029"}
+
+
+def safe_json(payload):
+    """json.dumps output that is safe inside an inline <script>: the characters that
+    could close the tag, open a comment or break a JS string are \\u-escaped."""
+    text = json.dumps(payload, ensure_ascii=False)
+    for ch, esc in _JS_ESCAPES.items():
+        text = text.replace(ch, esc)
+    return text
+
+
 def build_hero_html(payload):
-    """Self-contained HTML (data embedded, '<' escaped) for the non-component fallback."""
-    data = json.dumps(payload).replace("<", "\\u003c")
+    """Self-contained HTML (data embedded, script-safe) for the non-component fallback."""
+    data = safe_json(payload)
     return _template().replace(_PLACEHOLDER, f"window.__HERO__={data};", 1)
 
 
