@@ -46,8 +46,8 @@ FOOTER = (
 
 
 def build_sidebar_params():
-    st.sidebar.title("Scenario controls")
-    st.sidebar.caption("All data is illustrative/synthetic. See the Method & Limits tab.")
+    st.sidebar.title("Control panel")
+    st.sidebar.caption("Scenario, scoring and capacity settings. All data is illustrative/synthetic; see the Method & Limits tab.")
 
     with st.sidebar.expander("Hazard scenario", expanded=True):
         derived = ui_live.get_derived_scenario()
@@ -214,7 +214,9 @@ def main():
     if result["incident_source"] == "sample_fallback":
         st.sidebar.warning("Live Firestore read failed — showing sample data instead.")
 
-    hero.render_hero(result["habitations"])
+    with st.container(key="gd-hero"):
+        picked = hero.render_hero(result["habitations"])
+    hero.apply_selection(st.session_state, picked, result["habitations"]["habitation_id"].tolist())
     theme.render_masthead()
 
     tabs = st.tabs(
