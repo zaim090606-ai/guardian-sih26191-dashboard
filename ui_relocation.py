@@ -1,6 +1,7 @@
 """Relocation tab: ranked habitations by Relocation Priority Index, the
 greedy site allocation, unallocated habitations, and a CSV export."""
 
+import html
 import io
 
 import streamlit as st
@@ -9,6 +10,29 @@ import buffer
 import relocation
 import report
 import robustness
+from ui import charts, views
+
+
+def _render_selected(habitations):
+    """Panel for the village picked by clicking a pin in the hero (if any)."""
+    hid = st.session_state.get("selected_hab")
+    if not hid:
+        return
+    rows = habitations[habitations["habitation_id"] == hid]
+    if rows.empty:
+        return
+    row = rows.iloc[0]
+    st.markdown(
+        f'<div class="gd-selected"><div class="gd-smallcaps">Selected from the hero</div>'
+        f'<div class="nm">{html.escape(str(row["name"]))} <span style="font-size:1rem">({html.escape(str(hid))})</span></div>'
+        f'{views.tier_pill_html(row["rpi_tier"])} &nbsp; Relocation Priority Index <b>{row["rpi"]:.1f}</b> &nbsp;|&nbsp; '
+        f'zone score {row["zone_score"]:.1f} &nbsp;|&nbsp; {int(row["population"]):,} residents</div>',
+        unsafe_allow_html=True,
+    )
+    st.caption("The Decision report below and the Map tab's habitation inspector are preset to this village.")
+    if st.button("Clear selection", key="clear_selected_hab"):
+        st.session_state.pop("selected_hab", None)
+        st.rerun()
 
 
 def render_relocation_tab(result):
@@ -17,13 +41,12 @@ def render_relocation_tab(result):
     unallocated = result["unallocated"]
     sites = result["sites_after"]
 
+    _render_selected(habitations)
+
     st.subheader("Candidate safe sites: carrying capacity")
-    st.dataframe(
-        sites[["site_id", "name", "area_limit", "water_limit", "sanitation_limit", "limiting_resource",
-               "capacity_people", "allocated_people", "remaining_capacity"]],
-        width="stretch",
-        hide_index=True,
-    )
+    views.show_table(st, sites[["site_id", "name", "area_limit", "water_limit", "sanitation_limit", "limiting_resource",
+                                "capacity_people", "allocated_people", "remaining_capacity"]])
+    charts.show(st, charts.capacity_chart(sites))
     st.caption(
         "Limits are people supported by usable area (after slope/hazard reduction), water and "
         "toilets, net of livestock placed at the site. Norms are illustrative defaults; verify "
@@ -35,7 +58,7 @@ def render_relocation_tab(result):
         ["habitation_id", "name", "population", "vulnerability", "zone_score", "rpi", "rpi_tier",
          "red_distance_m", "buffer_m", "buffer_factor", "route_risk", "route_flag", "riskiest_cell", "riskiest_cell_score"]
     ]
-    st.dataframe(ranked, width="stretch", hide_index=True)
+    views.show_table(st, ranked)
 
     tier_counts = habitations["rpi_tier"].value_counts()
     c1, c2, c3 = st.columns(3)
@@ -47,13 +70,13 @@ def render_relocation_tab(result):
     if allocation.empty:
         st.info("No habitation could be allocated to any candidate site at this capacity/space norm.")
     else:
-        st.dataframe(allocation, width="stretch", hide_index=True)
+        views.show_table(st, allocation)
 
     st.subheader("Unallocated (no site had enough remaining capacity)")
     if unallocated.empty:
         st.success("Every habitation was allocated to a site.")
     else:
-        st.dataframe(unallocated, width="stretch", hide_index=True)  # includes "reason"
+        views.show_table(st, unallocated)  # includes "reason"
         st.caption(f"Total unallocated population: {int(unallocated['population'].sum())}")
 
     csv_buf = io.StringIO()
@@ -102,4 +125,4 @@ def render_relocation_tab(result):
     if rob is not None:
         n_sens = int((rob["label"] == "Sensitive").sum())
         st.write(f"{n_sens} of {len(rob)} habitations are **Sensitive** (based on the last run; rerun after changing sidebar settings).")
-        st.dataframe(rob.sort_values("pct_runs_same_tier"), width="stretch", hide_index=True)
+        views.show_table(st, rob.sort_values("pct_runs_same_tier"))

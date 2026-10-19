@@ -6,6 +6,7 @@ in guardian_layer.py before this module ever sees the data).
 import streamlit as st
 
 import review
+from ui import charts, views
 
 DISPLAY_COLUMNS = [
     "incident_id",
@@ -35,11 +36,8 @@ def render_evidence_tab(result):
         return
 
     display_cols = [c for c in DISPLAY_COLUMNS if c in incidents.columns]
-    st.dataframe(
-        incidents[display_cols].sort_values("ecs", ascending=False),
-        width="stretch",
-        hide_index=True,
-    )
+    views.show_table(st, incidents[display_cols].sort_values("ecs", ascending=False))
+    charts.show(st, charts.ecs_chart(incidents))
 
     _render_triage(result)
 
@@ -73,7 +71,7 @@ def _render_unlocated(result):
     cols = ["incident_id", "completeness", "unlocated_reason", "riskLevel", "eventType",
             "ecs", "comms_degraded", "timestamp"]
     part = result["unlocated"]
-    st.dataframe(part[[c for c in cols if c in part.columns]], width="stretch", hide_index=True)
+    views.show_table(st, part[[c for c in cols if c in part.columns]])
 
 
 def _render_triage(result):
@@ -86,7 +84,7 @@ def _render_triage(result):
     if queue.empty:
         st.info("No incident clusters in this run.")
         return
-    st.dataframe(queue.drop(columns=["cluster_id"]), width="stretch", hide_index=True)
+    views.show_table(st, queue.drop(columns=["cluster_id"]))
     key = st.selectbox("Cluster to review", queue["cluster_key"].tolist(), key="review_cluster")
     cur = queue[queue["cluster_key"] == key].iloc[0]
     status = st.selectbox("Status", review.STATUSES, index=review.STATUSES.index(cur["status"]),
