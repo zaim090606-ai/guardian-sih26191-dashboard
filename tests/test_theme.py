@@ -9,6 +9,22 @@ def test_css_has_editorial_tokens_and_pinned_fonts():
     assert theme.FONTS_URL.startswith("https://fonts.googleapis.com/")
 
 
+def test_css_hides_chrome_keeps_sidebar_and_honours_reduced_motion():
+    css = theme.build_css()
+    assert "stFooter" in css and "stDecoration" in css
+    assert "stSidebarCollapsedControl" not in css and "stExpandSidebarButton" not in css
+    reduced = css[css.index("@media (prefers-reduced-motion"):]
+    assert "animation:none" in reduced and "transition:none" in reduced
+    assert "::selection" in css and "scrollbar" in css and "gd-pill-immediate" in css
+
+
+def test_overview_steps_html_has_three_inline_svg_cards_and_no_emoji():
+    import ui_overview
+    html = ui_overview.steps_html()
+    assert html.count('class="gd-step"') == 3 and html.count("<svg") == 3
+    assert all(ord(ch) < 0x2190 for ch in html)
+
+
 def test_tier_colors_readable_on_ivory():
     def lum(h):
         c = [int(h[i:i + 2], 16) / 255 for i in (1, 3, 5)]

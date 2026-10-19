@@ -54,10 +54,37 @@ def test_empty_and_missing_columns():
 def test_no_personal_or_extra_fields():
     df = _df().assign(phone="9999", contact_name="Someone")
     p = hero.build_hero_payload(df, 4)
-    allowed = {"rank", "label", "rpi", "tier", "tier_label", "color", "x", "y"}
+    allowed = {"rank", "label", "rpi", "tier", "tier_label", "color", "x", "y", "id", "glyph", "why"}
     assert all(set(pt) == allowed for pt in p["points"])
     blob = json.dumps(p)
-    assert "9999" not in blob and "Someone" not in blob and "population" not in blob
+    assert "9999" not in blob and "Someone" not in blob
+
+
+def test_point_has_id_glyph_and_why_from_real_row():
+    df = _df().assign(zone_score=[10.0, 72.4, 50.0, 20.0], vulnerability=[0.2, 0.47, 0.3, 0.1],
+                      buffer_applied=[False, True, False, False])
+    top = hero.build_hero_payload(df, 1)["points"][0]
+    assert top["id"] == "H2" and top["glyph"] == hero.TIER_GLYPHS["immediate"]
+    assert "Zone score 72/100" in top["why"] and "vulnerability 0.47" in top["why"]
+    assert "200 residents" in top["why"] and "buffer uplift" in top["why"]
+
+
+def test_why_line_degrades_gracefully():
+    assert hero.why_line({}).startswith("Ranked by Relocation Priority Index")
+    assert hero.why_line({"zone_score": float("nan"), "population": None}).startswith("Ranked")
+
+
+def test_apply_selection_once_per_click_and_only_valid_ids():
+    state = {}
+    ids = ["H1", "H2"]
+    assert hero.apply_selection(state, {"id": "H2", "n": "a"}, ids) is True
+    assert state["selected_hab"] == "H2" and state["dr_hab"] == "H2" and state["inspect_hab"] == "H2"
+    assert state["dr_kind"] == "Habitation"
+    assert hero.apply_selection(state, {"id": "H1", "n": "a"}, ids) is False  # same click replayed
+    assert state["selected_hab"] == "H2"
+    assert hero.apply_selection(state, {"id": "nope", "n": "b"}, ids) is False
+    assert hero.apply_selection(state, None, ids) is False
+    assert hero.apply_selection(state, {"id": "H1", "n": "c"}, ids) is True and state["selected_hab"] == "H1"
 
 
 def test_html_has_caption_pinned_cdn_and_escapes_payload():
@@ -66,6 +93,22 @@ def test_html_has_caption_pinned_cdn_and_escapes_payload():
     assert hero.CAPTION in html
     assert "cdnjs.cloudflare.com/ajax/libs/three.js/0.160.0/three.min.js" in html
     assert "</script><b>" not in html
-    for banned in ("document.cookie", "localStorage", "sessionStorage", "window.parent", "window.top"):
+    for banned in ("document.cookie", "localStorage", "sessionStorage", "window.parent", "window.top", "eval("):
         assert banned not in html
     assert "prefers-reduced-motion" in html and "IntersectionObserver" in html
+
+
+def test_component_file_pins_same_three_url_and_sri_and_has_interaction_features():
+    html = hero._template()
+    assert hero.THREE_URL in html and hero.THREE_SRI in html
+    assert "window.__HERO__=null;" in html  # placeholder the fallback embed replaces
+    for needle in ("streamlit:componentReady", "streamlit:setComponentValue", "streamlit:render",
+                   "Reset view", "pointerdown", "wheel", "devicePixelRatio", "visibilitychange"):
+        assert needle in html
+    # the only call toward the parent page is the Streamlit postMessage channel
+    assert html.count("parent.") == 1 and "parent.postMessage" in html
+
+
+def test_fallback_html_embeds_payload_and_no_placeholder_left():
+    html = hero.build_hero_html({"points": [], "legend": [], "caption": "x"})
+    assert "window.__HERO__={" in html and "window.__HERO__=null;" not in html
