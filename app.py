@@ -30,8 +30,10 @@ import ui_brief
 import ui_scorecard
 import ui_method
 import ui_live
+from ui import hero, theme
 
 st.set_page_config(page_title="Guardian x SIH26191 Prototype", layout="wide")
+theme.inject_theme()
 
 FOOTER = (
     "**Illustrative data:** habitations, hazard grid, safe sites, livestock and sample incidents are "
@@ -211,6 +213,9 @@ def main():
 
     if result["incident_source"] == "sample_fallback":
         st.sidebar.warning("Live Firestore read failed — showing sample data instead.")
+
+    hero.render_hero(result["habitations"])
+    theme.render_masthead()
 
     tabs = st.tabs(
         ["Overview", "Map", "Evidence", "Relocation", "Impact of Ground Evidence", "Live Scenario",
