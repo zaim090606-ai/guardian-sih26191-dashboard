@@ -17,7 +17,7 @@ from connectors import sachet, scenario
 
 AUTO_REFRESH_MINUTES = 20
 
-STATUS_BADGE = {"live": "🟢 Live", "cached": "🟡 Cached", "sample": "⚪ Sample"}
+STATUS_BADGE = {"live": "Live", "cached": "Cached", "sample": "Sample"}
 
 CONNECTOR_LABELS = {
     "rainfall": "Open-Meteo: Rainfall",
@@ -64,7 +64,7 @@ def render_live_tab():
             st.caption(fetch_result.source)
             st.caption(f"as of {fetch_result.fetched_at}")
             if fetch_result.error:
-                st.caption(f"⚠️ {fetch_result.error}")
+                st.caption(f"Note: {fetch_result.error}")
 
     st.subheader("Derived hazard-scenario multiplier")
     st.metric("Derived multiplier (sidebar slider overrides this)", f"{result['multiplier']:.2f}x")
