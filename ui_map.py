@@ -4,6 +4,8 @@ breakdown" controls. Imported by app.py; no top-level Streamlit calls run on
 import.
 """
 
+import html
+
 import folium
 import streamlit as st
 from streamlit_folium import st_folium
@@ -13,9 +15,10 @@ import guardian_layer as gl
 import palette
 import route_safety
 import ui_map3d
+from ui import views
 
 ZONE_COLORS = palette.TIER_COLORS
-RISK_COLORS = {"CRITICAL": "#7f1d1d", "HIGH": "#dc2626", "MEDIUM": "#d97706", "LOW": "#65a30d"}
+RISK_COLORS = {"CRITICAL": "#7f1d1d", "HIGH": palette.RED, "MEDIUM": palette.AMBER, "LOW": "#65a30d"}
 
 
 def _cell_bounds(lat, lon):
@@ -27,9 +30,17 @@ def build_folium_map(grid, habitations, sites, incidents, routes=None,
                      route_threshold=route_safety.DEFAULT_ROUTE_THRESHOLD):
     center_lat = float(grid["lat"].mean())
     center_lon = float(grid["lon"].mean())
-    # OpenStreetMap tiles need no API key (unlike newer CartoDB tile plans),
-    # which matters for a demo that has to work with zero setup.
-    fmap = folium.Map(location=[center_lat, center_lon], zoom_start=14, tiles="OpenStreetMap")
+    # OpenStreetMap tiles need no API key; a CSS filter mutes them to a light, classic
+    # look. If tiles cannot load (offline) every vector layer below still draws on
+    # the ivory background.
+    fmap = folium.Map(location=[center_lat, center_lon], zoom_start=14, tiles=None)
+    folium.TileLayer(
+        tiles="https://tile.openstreetmap.org/{z}/{x}/{y}.png", name="Light basemap (OpenStreetMap, muted)",
+        max_zoom=19, class_name="gd-muted-tiles",
+        attr='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    ).add_to(fmap)
+    folium.TileLayer("OpenStreetMap", name="OpenStreetMap (standard colour)", show=False).add_to(fmap)
+    fmap.get_root().header.add_child(folium.Element(_MAP_CSS))
 
     zones_layer = folium.FeatureGroup(name="Zone Risk (Red/Amber/Green)", show=True)
     for _, cell in grid.iterrows():
@@ -46,19 +57,20 @@ def build_folium_map(grid, habitations, sites, incidents, routes=None,
         ).add_to(zones_layer)
     zones_layer.add_to(fmap)
 
-    hab_layer = folium.FeatureGroup(name="Habitations", show=True)
+    hab_layer = folium.FeatureGroup(name="Habitations (colour = relocation tier)", show=True)
     for _, hab in habitations.iterrows():
+        tier = hab["rpi_tier"]
+        color = palette.RPI_TIER_COLORS.get(tier, "#14213D")
+        radius = 5 + min(hab["population"] / 300, 9)
+        tip = (f"{hab['name']} ({hab['habitation_id']}) — pop {hab['population']}, "
+               f"RPI {hab['rpi']:.1f} ({tier})")
+        # soft halo under the marker, so tiers read on any basemap
+        folium.CircleMarker(location=[hab["lat"], hab["lon"]], radius=radius + 5, color=color, weight=0,
+                            fill=True, fill_color=color, fill_opacity=0.18).add_to(hab_layer)
         folium.CircleMarker(
-            location=[hab["lat"], hab["lon"]],
-            radius=4 + min(hab["population"] / 300, 10),
-            color="#1d4ed8",
-            fill=True,
-            fill_color="#3b82f6",
-            fill_opacity=0.8,
-            tooltip=(
-                f"{hab['name']} ({hab['habitation_id']}) — pop {hab['population']}, "
-                f"RPI {hab['rpi']:.1f} ({hab['rpi_tier']})"
-            ),
+            location=[hab["lat"], hab["lon"]], radius=radius, color="#FFFDF8", weight=1.5,
+            fill=True, fill_color=color, fill_opacity=0.95, tooltip=tip,
+            popup=folium.Popup(_habitation_popup(hab), max_width=260),
         ).add_to(hab_layer)
     hab_layer.add_to(fmap)
 
@@ -124,9 +136,43 @@ def build_folium_map(grid, habitations, sites, incidents, routes=None,
             ).add_to(routes_layer)
         routes_layer.add_to(fmap)
         fmap.get_root().html.add_child(folium.Element(_route_legend_html(route_threshold)))
+    fmap.get_root().html.add_child(folium.Element(_tier_legend_html()))
 
     folium.LayerControl(collapsed=False).add_to(fmap)
     return fmap
+
+
+_MAP_CSS = """<style>
+.gd-muted-tiles{filter:grayscale(.9) sepia(.22) brightness(1.07) contrast(.92)}
+.leaflet-container{background:#F2ECDD;font-family:Inter,'Segoe UI',system-ui,sans-serif}
+.gd-pop{font-size:13px;line-height:1.45;color:#14213D;min-width:190px}
+.gd-pop .nm{font-family:'Cormorant Garamond',Georgia,serif;font-size:19px;font-weight:700;line-height:1.15}
+.gd-pop .t{font-weight:600}
+.gd-pop .w{color:#4A5568;margin-top:4px}
+.leaflet-popup-content-wrapper{border-radius:4px;border-top:3px solid #A8782A;box-shadow:0 6px 18px rgba(20,33,61,.25)}
+.gd-leg{position:fixed;bottom:24px;right:12px;z-index:9999;background:rgba(255,253,248,.96);color:#14213D;padding:7px 10px;
+ border:1px solid #E1D8C3;border-radius:4px;font-size:12px;line-height:1.5;box-shadow:0 2px 8px rgba(20,33,61,.15)}
+.gd-leg b{font-variant:small-caps;letter-spacing:.06em}
+</style>"""
+
+
+def _habitation_popup(hab):
+    tier = hab["rpi_tier"]
+    why = (f"Zone score {hab['zone_score']:.0f}/100, vulnerability {hab['vulnerability']:.2f}, "
+           f"{int(hab['population']):,} residents.")
+    color = palette.RPI_TIER_COLORS.get(tier, "#14213D")
+    return (f'<div class="gd-pop"><div class="nm">{html.escape(str(hab["name"]))}</div>'
+            f'<div class="t" style="color:{color}">{html.escape(views.tier_label(tier))}</div>'
+            f'<div>Relocation Priority Index <b>{hab["rpi"]:.1f}</b></div>'
+            f'<div class="w">{html.escape(why)}</div></div>')
+
+
+def _tier_legend_html():
+    rows = "".join(
+        f'<div><span style="color:{palette.RPI_TIER_COLORS[t]}">&#9679;</span> {html.escape(views.tier_label(t))}</div>'
+        for t in ("immediate", "short-term", "medium-term")
+    )
+    return f'<div class="gd-leg"><b>Habitation tier</b>{rows}</div>'
 
 
 def _route_legend_html(threshold):
@@ -135,9 +181,9 @@ def _route_legend_html(threshold):
         '<div style="position:fixed;bottom:24px;left:24px;z-index:9999;background:white;color:#111;'
         'padding:8px 10px;border:1px solid #888;border-radius:4px;font-size:12px;">'
         "<b>Route risk</b> (dashed = unallocated)<br>"
-        f'<span style="color:#16a34a">&#9632;</span> green &lt; {amber:.0f}<br>'
-        f'<span style="color:#d97706">&#9632;</span> amber {amber:.0f}&ndash;{threshold:.0f}<br>'
-        f'<span style="color:#dc2626">&#9632;</span> red &ge; {threshold:.0f} (unsafe)</div>'
+        f'<span style="color:{palette.GREEN}">&#9632;</span> green &lt; {amber:.0f}<br>'
+        f'<span style="color:{palette.AMBER}">&#9632;</span> amber {amber:.0f}&ndash;{threshold:.0f}<br>'
+        f'<span style="color:{palette.RED}">&#9632;</span> red &ge; {threshold:.0f} (unsafe)</div>'
     )
 
 

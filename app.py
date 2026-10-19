@@ -30,8 +30,10 @@ import ui_brief
 import ui_scorecard
 import ui_method
 import ui_live
+from ui import hero, theme
 
 st.set_page_config(page_title="Guardian x SIH26191 Prototype", layout="wide")
+theme.inject_theme()
 
 FOOTER = (
     "**Illustrative data:** habitations, hazard grid, safe sites, livestock and sample incidents are "
@@ -44,8 +46,8 @@ FOOTER = (
 
 
 def build_sidebar_params():
-    st.sidebar.title("Scenario controls")
-    st.sidebar.caption("All data is illustrative/synthetic. See the Method & Limits tab.")
+    st.sidebar.title("Control panel")
+    st.sidebar.caption("Scenario, scoring and capacity settings. All data is illustrative/synthetic; see the Method & Limits tab.")
 
     with st.sidebar.expander("Hazard scenario", expanded=True):
         derived = ui_live.get_derived_scenario()
@@ -211,6 +213,11 @@ def main():
 
     if result["incident_source"] == "sample_fallback":
         st.sidebar.warning("Live Firestore read failed — showing sample data instead.")
+
+    with st.container(key="gd-hero"):
+        picked = hero.render_hero(result["habitations"])
+    hero.apply_selection(st.session_state, picked, result["habitations"]["habitation_id"].tolist())
+    theme.render_masthead()
 
     tabs = st.tabs(
         ["Overview", "Map", "Evidence", "Relocation", "Impact of Ground Evidence", "Live Scenario",

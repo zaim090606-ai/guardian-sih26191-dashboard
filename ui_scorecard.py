@@ -59,9 +59,6 @@ REQUIREMENTS = [
     },
 ]
 
-STATUS_ICON = {"Implemented": "🟢", "Partial": "🟡", "Not": "🔴"}
-
-
 def render_scorecard_tab():
     st.caption(
         "Status is 'Implemented' only where the referenced automated test currently "
@@ -69,8 +66,10 @@ def render_scorecard_tab():
         "not re-executed live inside this app."
     )
     for req in REQUIREMENTS:
-        icon = STATUS_ICON.get(req["status"], "⚪")
-        st.markdown(f"**{icon} {req['requirement']}** — _{req['status']}_")
+        st.markdown(
+            f'<span class="gd-status">{req["status"]}</span> **{req["requirement"]}**',
+            unsafe_allow_html=True,
+        )
         st.caption(req["notes"])
         st.code(req["test"], language="text")
         st.divider()
